@@ -95,3 +95,6 @@ requester().catch(e => {
   }
 })
 ```
+
+## Unknown Statuses
+The library uses the excellent [http-status-codes](https://www.npmjs.com/package/http-status-codes) module under the hood to map statuses to status codes. If a status code is used that is not defined in that module, the resulting status will always be "Unkown".
