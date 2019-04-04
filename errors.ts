@@ -6,7 +6,7 @@ interface Options {
 	status?: string
 }
 
-export abstract class HttpError extends Error {
+export class HttpError extends Error {
 	public readonly statusCode: number
 	public readonly message: string
 	public readonly status: string
