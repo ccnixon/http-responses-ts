@@ -1,17 +1,17 @@
 ## Overview
-http-responses is designed to be a simple way to construct http errors/responses throughout your node applications. The module consists of a parent classe from which a number of sub-classes extend:
+http-responses is designed to be a simple way to construct standardized http errors/responses throughout your node applications. The module consists of a parent classe from which a number of sub-classes extend:
 
 ### `HttpResponse`
 ```typescript
-interface HttpResponse {
+class HttpResponse {
   statusCode: number
-  message: string
   status: string
+  message?: string
 }
 ```
 
 ## Pre-Defined Responses
-http-responses comes with a number of pre-built response types that collectively implement all the standard HTTP response types.
+http-responses comes with a number of pre-built response classes that collectively implement all the [standard HTTP status codes](https://www.restapitutorial.com/httpstatuscodes.html).
 
 ```typescript
 import { Created, BadRequest } from 'http-responses'
@@ -62,7 +62,6 @@ There will be times where your service might make requests to external API's. It
 ```typescript
 import axios from 'axios'
 import { HttpResponse } from 'http-responses/responses'
-import { HttpError } from 'http-responses/errors'
 async function requester(): HttpResponse {
   try {
     const res = await axios.get('https://api.foo.com/resource')
@@ -72,7 +71,11 @@ async function requester(): HttpResponse {
   }
 }
 
-requester().catch(e => {
+requester()
+.then(res => {
+  // do something...
+})
+.catch(e => {
   if (e instanceof HttpResponse) {
     // safely resume running
   } else {
@@ -82,4 +85,4 @@ requester().catch(e => {
 ```
 
 ## Unknown Statuses
-The library uses the excellent [http-status-codes](https://www.npmjs.com/package/http-status-codes) module under the hood to map statuses to status codes. If a status code is used that is not defined in that module, the resulting status will always be "Unkown".
+The library uses the excellent [http-status-codes](https://www.npmjs.com/package/http-status-codes) module under the hood to map status text to status codes. If a status code is used that is not defined in that module, the resulting status will always be "Unknown".
