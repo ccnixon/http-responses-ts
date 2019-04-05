@@ -1,5 +1,5 @@
 ## Overview
-http-responses is designed to be a simple way to construct standardized http errors/responses throughout your node applications. The module consists of a parent classe from which a number of sub-classes extend:
+http-responses-ts is designed to be a simple way to construct standardized http responses throughout your node applications. The module is written in TypeScript and consists of a parent class from which a number of sub-classes extend:
 
 ### `HttpResponse`
 ```typescript
@@ -13,10 +13,10 @@ class HttpResponse {
 ## Usage
 
 ### Pre-Defined Responses
-http-responses comes with a number of pre-built response classes that collectively implement all the [standard HTTP status codes](https://www.restapitutorial.com/httpstatuscodes.html).
+http-responses-ts comes with a number of pre-built response classes that collectively implement all the [standard HTTP status codes](https://www.restapitutorial.com/httpstatuscodes.html).
 
 ```typescript
-import { Created, BadRequest } from 'http-responses'
+import { Created, BadRequest } from 'http-responses-ts'
 const error = new BadRequest()
 const response = new Created()
 ```
@@ -25,7 +25,7 @@ const response = new Created()
 You can optionally specify a message with a response. If you don't define one manually, the message will default to the status.
 
 ```typescript
-import { Created, BadRequest } from 'http-responses'
+import { Created, BadRequest } from 'http-responses-ts'
 
 const error = new BadRequest('You did something wrong!')
 const response = new Created('User Created!')
@@ -35,7 +35,7 @@ const response = new Created('User Created!')
 It's easy to create your own response types to suit your individual needs. It's always best to extend a subclass of the  `HttpResponse` classe, not the parent class itself. This will ensure your API is following standard HTTP conventions.
 
 ```typescript
-import { PaymentRequired } from 'http-responses'
+import { PaymentRequired } from 'http-responses-ts'
 // Status Code for this class will be 402...
 class CreditCardExpired extends PaymentRequired {
   constructor() {
@@ -47,7 +47,7 @@ class CreditCardExpired extends PaymentRequired {
 You can also define your own custom status messages. This can be helpful if your upstream clients need to take action based on custom response types that your API returns:
 
 ```typescript
-import { BadRequest } from 'http-responses'
+import { BadRequest } from 'http-responses-ts'
 
 class ValidationError extends BadRequest {
   constuctor(message: string) {
@@ -63,7 +63,7 @@ There will be times where your service might make requests to external API's. It
 
 ```typescript
 import axios from 'axios'
-import { HttpResponse } from 'http-responses/responses'
+import { HttpResponse } from 'http-responses-ts'
 async function requester(): HttpResponse {
   try {
     const res = await axios.get('https://api.foo.com/resource')
