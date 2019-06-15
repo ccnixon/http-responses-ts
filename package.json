@@ -5,8 +5,7 @@
   "main": "./dist",
   "scripts": {
     "build": "tsc",
-    "prepare": "tsc",
-    "postinstall": "tsc"
+    "prepare": "tsc"
   },
   "keywords": [],
   "author": "",
